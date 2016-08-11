@@ -26,7 +26,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
-import drewmahrt.generalassemb.ly.twitteroauthlab.models.BearerToken;
+//import drewmahrt.generalassemb.ly.twitteroauthlab.models.BearerToken;
 import drewmahrt.generalassemb.ly.twitteroauthlab.models.Tweet;
 import drewmahrt.generalassemb.ly.twitteroauthlab.models.Tweets;
 import okhttp3.OkHttpClient;
@@ -64,23 +64,24 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // get current time, format it into GSON
-        Gson gson = new GsonBuilder()
-                .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
-                .create();
+        // get current time(?), format it into GSON
+//        Gson gson = new GsonBuilder()
+//                .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
+//                .create();
 
         // interceptor catches and formats our header before our request is made.  Not 100% clear
         // on how this works
-        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-        interceptor.setLevel(HttpLoggingInterceptor.Level.HEADERS);
-        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
+//        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+//        interceptor.setLevel(HttpLoggingInterceptor.Level.HEADERS);
+//        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
+//        OkHttpClient client = new OkHttpClient.Builder().build();
 
         // Start with Retrofit class, add on our base URL, add the client (interceptor), add our
         // GSON formatted time string
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(TwitterAppData.BASE_URL)
-                .client(client)
-                .addConverterFactory(GsonConverterFactory.create(gson))
+//                .client(client)
+//                .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         // I believe this is a Retrofit object that extends our interface
@@ -104,6 +105,13 @@ public class MainActivity extends AppCompatActivity {
         // interceptor, GSON time stamp.  We feed it our completed auth string and requested content
         // type, and request client creds
         Call<ResponseBody> call = twitterApi.authorizeApplication("Basic "+base64,"application/x-www-form-urlencoded;charset=UTF-8","client_credentials");
+//        Log.d("SEVTEST HEAD", "" + call.request().headers());
+
+        for (String head : call.request().headers().names()) {
+                       Log.d("Header","Names: " + head + ":" + call.request().headers().values(head));
+                   }
+
+
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -131,19 +139,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getTweets(){
-        // BELOW THIS POINT : same as earlier
-        Gson gson = new GsonBuilder()
-                .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
-                .create();
+//         BELOW THIS POINT : same as earlier
+//        Gson gson = new GsonBuilder()
+//                .setDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz")
+//                .create();
 
-        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-        interceptor.setLevel(HttpLoggingInterceptor.Level.HEADERS);
-        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
+//        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+//        interceptor.setLevel(HttpLoggingInterceptor.Level.HEADERS);
+//        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
+//        OkHttpClient client = new OkHttpClient.Builder().build();
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(TwitterAppData.BASE_URL)
-                .client(client)
-                .addConverterFactory(GsonConverterFactory.create(gson))
+//                .client(client)
+//                .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
 
         TwitterApiEndpointInterface twitterApi = retrofit.create(TwitterApiEndpointInterface.class);

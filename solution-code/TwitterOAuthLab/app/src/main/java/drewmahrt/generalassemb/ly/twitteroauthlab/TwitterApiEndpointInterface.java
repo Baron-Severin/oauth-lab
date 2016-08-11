@@ -2,7 +2,7 @@ package drewmahrt.generalassemb.ly.twitteroauthlab;
 
 import java.util.List;
 
-import drewmahrt.generalassemb.ly.twitteroauthlab.models.BearerToken;
+//import drewmahrt.generalassemb.ly.twitteroauthlab.models.BearerToken;
 import drewmahrt.generalassemb.ly.twitteroauthlab.models.Tweet;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
