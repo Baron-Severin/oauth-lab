@@ -23,6 +23,8 @@ public interface TwitterApiEndpointInterface {
                                             @Query("grant_type") String grantType);
 
     @GET("1.1/statuses/user_timeline.json")
-    Call<ResponseBody> userTimeline(@Header("Authorization") String authorization, @Query("screen_name") String screenName, @Query("count") int count);
+    Call<ResponseBody> userTimeline(@Header("Authorization") String authorization,
+                                    @Query("screen_name") String screenName,
+                                    @Query("count") int count);
 }
 
